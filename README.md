@@ -6,20 +6,19 @@
 status](https://www.r-pkg.org/badges/version/ggbiplot)](https://CRAN.R-project.org/package=ggbiplot)
 [![Last
 Commit](https://img.shields.io/github/last-commit/friendly/ggbiplot)](https://github.com/friendly/ggbiplot)
+[![Downloads](https://cranlogs.r-pkg.org/badges/ggbiplot)](https://cran.r-project.org/package=ggbiplot)
 <!-- badges: end -->
 
-This repo for the **ggbiplot** package
-<!-- [ggbiplot package](https://CRAN.R-project.org/package=ggbiplot) -->
-was forked from <https://github.com/vqv/ggbiplot> by Vince Yu, which has
-been dormant since 2015.
-
-The goal is to complete that development and publish a new version on
-CRAN with Vince Yu as the principal author. There is also an
-[experimental
-branch](https://github.com/friendly/ggbiplot/tree/experimental) which
-attempts to simplify the code, but this has some unresolved problems.
+<!-- This repo for the **ggbiplot** package -->
+<!-- was forked from [https://github.com/vqv/ggbiplot](https://github.com/vqv/ggbiplot) by Vince Vu, which has been dormant -->
+<!-- since 2015.   -->
+<!-- The goal is to complete that development and publish a new version on CRAN with Vince Vu as the principal author. -->
+<!-- There is also an [experimental branch](https://github.com/friendly/ggbiplot/tree/experimental) which attempts to -->
+<!-- simplify the code, but this has some unresolved problems. -->
 
 # ggbiplot <img src="man/figures/logo.png" height="200" style="float:right; height:200px;"/>
+
+**Version** 0.6.2 ( master branch )
 
 This package provides a `ggplot2` implementation of the biplot, a
 simultaneous plot of scores for observations and vectors for variables
@@ -27,17 +26,26 @@ for principal component-like analyses.
 The package provides two main functions: `ggscreeplot()` and
 `ggbiplot()`.
 
-`ggbiplot` aims to be a drop-in replacement for the built-in R function
-`biplot.princomp()` with extended functionality for labeling groups,
-drawing a correlation circle, and adding data ellipsoids.
+`ggbiplot` aims to be a drop-in replacement for the standard R function
+`stats::biplot()` with extended functionality for labeling groups,
+drawing a correlation circle, and adding data ellipsoids. It also
+supports PCA-like objects calculated by `FactoMineR::PCA()`,
+`ade4::dudi.pca()` and `MASS::lda()`.
+
+The package was originally developed by Vince Vu at
+<https://github.com/vqv/ggbiplot>. That development was supported in
+part by NSF Postdoctoral Fellowship DMS-0903120 from 2009-2012. The
+current version, now on CRAN, will be the locus of further development.
 
 ## Installation
 
-Install the current master branch with:
+You can install the latest CRAN version, or install from GitHub as shown
+below.
 
-``` r
-remotes::install_github("friendly/ggbiplot")
-```
+|                 |                                                |
+|-----------------|------------------------------------------------|
+| CRAN version    | `install.packages("ggbiplot")`                 |
+| GitHub `master` | `remotes::install_github("friendly/ggbiplot")` |
 
 ## Examples
 
@@ -91,13 +99,13 @@ crime.pca
 #> 
 #> Rotation (n x k) = (7 x 7):
 #>             PC1     PC2     PC3     PC4     PC5     PC6     PC7
-#> murder   -0.300 -0.6292  0.1782 -0.2321  0.5381  0.2591  0.2676
-#> rape     -0.432 -0.1694 -0.2442  0.0622  0.1885 -0.7733 -0.2965
-#> robbery  -0.397  0.0422  0.4959 -0.5580 -0.5200 -0.1144 -0.0039
-#> assault  -0.397 -0.3435 -0.0695  0.6298 -0.5067  0.1724  0.1917
-#> burglary -0.440  0.2033 -0.2099 -0.0576  0.1010  0.5360 -0.6481
-#> larceny  -0.357  0.4023 -0.5392 -0.2349  0.0301  0.0394  0.6017
-#> auto     -0.295  0.5024  0.5684  0.4192  0.3698 -0.0573  0.1470
+#> murder   -0.300 -0.6292 -0.1782  0.2321  0.5381  0.2591  0.2676
+#> rape     -0.432 -0.1694  0.2442 -0.0622  0.1885 -0.7733 -0.2965
+#> robbery  -0.397  0.0422 -0.4959  0.5580 -0.5200 -0.1144 -0.0039
+#> assault  -0.397 -0.3435  0.0695 -0.6298 -0.5067  0.1724  0.1917
+#> burglary -0.440  0.2033  0.2099  0.0576  0.1010  0.5360 -0.6481
+#> larceny  -0.357  0.4023  0.5392  0.2349  0.0301  0.0394  0.6017
+#> auto     -0.295  0.5024 -0.5684 -0.4192  0.3698 -0.0573  0.1470
 ```
 
 The biplot, using default scaling (standardized components), and
@@ -172,10 +180,6 @@ What can we understand about the differences among these wines from a
 biplot?
 
 ``` r
-library(ggbiplot)
-library(ggplot2)
-library(dplyr)
-
 data(wine)
 wine.pca <- prcomp(wine, scale. = TRUE)
 ggscreeplot(wine.pca) 
